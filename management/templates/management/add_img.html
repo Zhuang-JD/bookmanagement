@@ -1,0 +1,37 @@
+{% extends "login/base.html" %}
+{% block title %}添加图片{% endblock %}
+{% block content %}
+    <div class="container">
+            <div class="col">
+                <form class="form-horizontal"  method="post"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if message %}
+                        <div class="alert alert-warning">{{ message }}</div>
+                    {% endif %}
+
+                    <h3 class="text-center">添加图片</h3>
+                    <div class="form-group">
+                        {{ add_img_form.name.label_tag }}
+                        {{ add_img_form.name}}
+                    </div>
+                    <div class="form-group">
+                        {{ add_img_form.description.label_tag }}
+                        {{ add_img_form.description}}
+                    </div>
+                    <div class="form-group">
+                        {{ add_img_form.file.label_tag }}
+                        {{ add_img_form.file}}
+                    </div>
+                    <div class="form-group">
+                        {{ add_img_form.book.label_tag }}
+                        {{ add_img_form.book}}
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary float-right">提交</button>
+                    </div>
+
+{#                    {{ add_img_form }}#}
+                </form>
+            </div>
+    </div>
+{% endblock %}

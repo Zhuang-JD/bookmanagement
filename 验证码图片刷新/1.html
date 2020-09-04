@@ -1,0 +1,80 @@
+{％load static％}
+<！DOCTYPE html >
+< html  lang =“ en ” >
+< 头>
+    < meta  charset =“ UTF-8 ” >
+    < meta  name =“ viewport ” content =“ width = device-width，initial-scale = 1，shrink-to-fit = no ” >
+    <！-上述meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！->
+    <！-引导CSS->
+    < link  href =“ https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css ” rel =“ 样式表 ” >
+    < link  href =“ {{％static'login / css / login.css'％} ” rel =“ stylesheet ” >
+    < title >登陆</ title >
+</ head >
+
+< 身体>
+< div  类 =“ 容器 ” >
+    < div  class =“ col ” >
+        < form  class =“ form-login ” action =“ / login / ” method =“ post ” >
+            {如果login_form.captcha.errors％，则为％
+                < div  class =“ alert alert-warning ” > {{login_form.captcha.errors}} </ div >
+            {％elif条消息％}
+                < div  class =“ alert alert-warning ” > {{消息}} </ div >
+            {％elif request.session.mail_send％}
+                < div  class =“ alert alert-success ” >注册成功啦！快去邮箱确认再来登录吧?</ div >
+            {％ 万一 ％}
+            {％csrf_token％}
+            < h3  class =“ text-center ” >欢迎</ h3 >
+            {＃ {{ 登录表单 }}＃}
+            < div  class =“ form-group ” >
+                {{login_form.username.label_tag}}
+                {{login_form.username}}
+            </ div >
+            < div  class =“ form-group ” >
+                {{login_form.password.label_tag}}
+                {{login_form.password}}
+            </ div >
+            < div  class =“ form-group ” >
+                {＃{{login_form.captcha.label_tag}}＃}
+                {＃{{login_form.captcha}}＃}
+                < 标签 为 = “ id_captcha_1 ” >验证：</ 标签>
+                < img  src =“ {{image_url}} ” alt =“ captcha ” 类 =“ captcha ” >
+                < button  class =“ js-captcha-refresh btn btn-info ” >刷新</ button >
+                < 输入 类型 =“ 隐藏 ” 名称 =“ captcha_0 ” 值 =“ {{hash_key}} ” 必需 =“”
+                       id =“ id_captcha_0 ” >
+                < 输入 类型 =“ 文本 ” 名称 =“ captcha_1 ” 必需 =“” id =“ id_captcha_1 ”
+                       autocapitalize =“ 关闭 ‘ 自动填充 =’ 关闭 ‘ 自动更正 =’ 关闭 ”
+                       拼写检查 =“ false ” >
+            </ div >
+
+            {＃             < div  class =“ form-group ” >＃}
+            {＃                 < 标签 为 = “ id_password ” >密码：</ 标签>＃}
+            {＃                 < 输入 类型 = “ 密码 ” 名称 =“ 密码 ” 类 =“ 形式控制 ” ID =“ id_password ” 占位符 =“ 密码 ” 所需>＃}
+            {＃             </ div >＃}
+
+            < div >
+                < 一个 HREF =“ /注册 ‘ 类 =’ 文本的成功 ” >
+                    < ins >注册</ ins >
+                </ a >
+                < 按钮 类型 =“ 提交 ” 类 =“ btn btn-primary float-right ” >登录</ 按钮>
+            </ div >
+        </ 表单>
+    </ div >
+</ div >
+<！-首先使用jQuery，然后使用Popper.js，然后使用Bootstrap JS->
+{＃以下三者的引用顺序是固定的＃}
+< 脚本 src =“ https://cdn.bootcss.com/jquery/3.4.1/jquery.js ” > </ 脚本>
+< 脚本 src =“ https://cdn.bootcss.com/popper.js/1.15.0/esm/popper.js ” > </ 脚本>
+< 脚本 src =“ https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js ” > </ 脚本>
+< 脚本>
+    $ （'.js-captcha-refresh' ）。点击（功能 （） {
+        $形式 =  $ （这个）。父母（“形式” ）；
+        $ 。的getJSON （$ （本）。数据（'URL' ）， { } ，函数（JSON ）{    
+            //这应该更新您的验证码图片src和隐藏的验证码输入
+            $ （“ img.captcha” ）。ATTR （“SRC” ， JSON 。IMAGE_URL ）;
+            $ （“＃id_captcha_0” ）。VAL （JSON 。键）;
+        } ）;
+        返回 false ;
+    } ）;
+</ 脚本>
+</ body >
+</ html >

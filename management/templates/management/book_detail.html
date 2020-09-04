@@ -1,0 +1,51 @@
+{% extends "login/base.html" %}
+{% block title %}查看图书{% endblock %}
+{% block content %}
+    <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-2">
+                    <div class="col-md-3">
+                        {% if book.image_set.all %}
+                            <div id="carousel-generic" class="carouserl slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    {% for img in book.image_set.all %}
+                                        <li data-target="#carousel-generic" data-slide-to="{{ forloop.counter0  }}  "
+                                            {% if forloop.first %}
+                                                class="active"
+                                            {% endif %} >
+                                        </li>
+                                    {% endfor %}
+
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                    {% for img in book.image_set.all %}
+                                        <div {% if forloop.first %} class="'item active" {% else %} class="item"{% endif %}>
+                                            <img src="{{ img.img.url }}" class="img-rounded" alt="111" height="100" width="106">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <a class="left carousel-control" href="#carousel-generic" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        {% else %}
+                            <p class="text-center">暂无图片</p>
+                        {% endif %}
+                    </div>
+{#    {% if book.image_set.all %}#}
+{#        {% for img in book.image_set.all %}#}
+{#            <img class="img-rounded" src="{{ img.img.url }}" alt="111111111">#}
+{#        {% endfor %}#}
+{#    {% endif %}#}
+                    <div class="col-md-6 col-md-offset-1">
+                        <h2 class="text-center">{{ book.name }}</h2>
+                        <br>
+                        <h3>作者：{{ book.author }}</h3>
+                        <h3>类别：{{ book.category }}</h3>
+                        <h3>出版日期：{{ book.publish_date }}</h3>
+                        <h3>价格：{{ book.price }}</h3>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}

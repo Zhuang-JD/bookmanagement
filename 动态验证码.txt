@@ -1,0 +1,11 @@
+验证码刷新
+https://www.cnblogs.com/wangchaowei/p/6748447.html
+https://blog.csdn.net/weixin_30432179/article/details/95196197
+https://django-simple-captcha.readthedocs.io/en/latest/usage.html#define-the-form
+https://www.cnblogs.com/-wenli/p/13446543.html
+
+官方文档
+https://docs.djangoproject.com/zh-hans/2.2/topics/http/sessions/#module-django.contrib.sessions
+
+搜素导航栏
+https://www.runoob.com/try/try2.php?filename=trybs4_navbar_form

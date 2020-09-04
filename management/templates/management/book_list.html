@@ -1,0 +1,86 @@
+{% extends "login/base.html" %}
+{% block title %}书城-图书查看{% endblock %}
+{% block content %}
+    <div class="container">
+            <div class="row">
+                <div class="'col-md-2" >
+                    <div class="list_group">
+                        <a href="{% url 'book_list' 'all' %}" class="list-group-item" id="id_category_all">
+                            全部图书
+                        </a>
+                        {% for category in category_list %}
+                            <a href="{% url 'book_list' category %}" class="list-group-item" id="id_category_{{  category }}">
+                                {{ category }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <script type="text/javascript">
+                        $('#id_category_{{  query_category }}').addClass("active")
+                    </script>
+                </div>
+{#                <div class="progress">#}
+{#                    <div class="progress-bar" style="width:{{ lenx }}%"></div>#}
+{#                </div>#}
+                <div class="col-md-9 col-md-offset-1 pl-5">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">书名</th>
+                            <th scope="col">作者</th>
+                            <th scope="col">出版日期</th>
+                            <th scope="col">定价</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for book in book_list %}
+                            <tr>
+                                <td  scope="row">{{ forloop.counter }}</td>
+                                <td><a href="{% url 'book_detail' book.id %}">{{ book.name }}</a></td>
+{#                                <td><a href="#">{{ book.name }}</a></td>#}
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.publish_date | date:"Y-m-d" }}</td>
+{#                                <td>{{ book.publish_deta  }}</td>#}
+                                <td>{{ book.price | floatformat:2 }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td>暂无图书</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <nav>
+                        <ul class="pagination pagination d-flex justify-content-around">
+                            {% if book_list.has_previous %}
+                                    <li class="page-item active"  aria-current="page">
+                                        <a class="page-link" href="{% url 'book_list' query_category %}?page={{ book_list.previous_page_number }}">
+                                            上一页
+                                        </a>
+                                    </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a  class="page-link" href="#">上一页</a>
+                                </li>
+                            {% endif %}
+                            第 {{ book_list.number }} / {{ book_list.paginator.num_pages }}页
+                            {% if book_list.has_next %}
+                                <li class="page-item  active" aria-current="page">
+                                    <a class="page-link" href="{% url 'book_list' query_category %}?page={{ book_list.next_page_number }}" >
+                                        下一页
+                                    </a>
+                                </li>
+                            {% else %}
+                               <li class="page-item">
+                                   <a class="page-link" href="#">下一页</a>
+                               </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+            </div>
+    </div>
+{% endblock %}

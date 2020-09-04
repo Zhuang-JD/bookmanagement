@@ -1,0 +1,40 @@
+{% extends "login/base.html" %}
+{% block title %}添加图书{% endblock %}
+{% block content %}
+    <div class="container">
+            <div class="col">
+                <form class="form-horizontal"  method="post" >
+                    {% csrf_token %}
+                    {% if message %}
+                        <div class="alert alert-warning">{{ message }}</div>
+                    {% endif %}
+                    {% csrf_token %}
+                  <h3 class="text-center">添加书籍</h3>
+                  <div class="form-group">
+                      {{ add_book_form.name.label_tag }}
+                      {{ add_book_form.name}}
+                  </div>
+                    <div class="form-group">
+                      {{ add_book_form.author.label_tag }}
+                      {{ add_book_form.author}}
+                  </div>
+                <div class="form-group">
+                      {{ add_book_form.price.label_tag }}
+                      {{ add_book_form.price}}
+                  </div>
+                <div class="form-group">
+                      {{ add_book_form.publish_date.label_tag }}
+                      {{ add_book_form.publish_date}}
+                  </div>
+                    <div class="form-group">
+                      {{ add_book_form.category.label_tag }}
+                      {{ add_book_form.category}}
+                  </div>
+{#                    {{ add_book_form }}#}
+                    <div>
+                        <button type="submit" class="btn btn-primary float-right">提交</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+{% endblock %}
